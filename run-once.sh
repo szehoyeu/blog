@@ -7,6 +7,7 @@
 # " 1. Open a terminal window and cd into your repo"
 # " 3. Run the script, like this:
 # "      sh script-name.sh"
+#        sh run-once.sh
 # "#################################################"
 
 # Display current Ruby version
