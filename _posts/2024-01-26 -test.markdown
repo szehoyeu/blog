@@ -1,0 +1,58 @@
+Link: 
+[Markdown](https://www.youtube.com/watch?v=bpdvNwvEeSE "Markdown Tutorial")
+
+Commit Changes in `Git` script
+``` git
+git add --all
+git commit -m "Comment on changes"
+git push -u origin main
+
+-----------------------------
+
+bundle install
+bundle update
+bundle exec jekyll serve --livereload
+```
+
+
+# heading 1
+## heading 2
+### heading 3
+
+_Italics_
+
+**Strong/Bold**
+
+~~1000~~
+
+**500**
+
+Normal 
+
+Links:
+[Visit Here](https://Google.com "Google Home Page")
+
+Image: ![Webpage](https://google.jpeg "Img-01")
+
+Use `the script here ` script
+``` powershell
+$r = get-help
+
+```
+
+Tables
+
+ |Table |Goes |Here |
+ |--- |--- |--- |
+ |One |Two |Three |
+
+ >Keep doing it
+
+ 1. List one
+ 2. List Two
+ 3. List Three
+        4 .List four
+
+
+ -List four 
+
