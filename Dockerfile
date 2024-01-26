@@ -4,9 +4,9 @@
 
 # Crtl + Shift + P on Search field
 # =====================================
+
+
 # Open Dockerfile then click ok in VS code
-
-
 # Ctrl + Shift + P + Rebuild
 
 
