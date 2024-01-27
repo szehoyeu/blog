@@ -40,9 +40,11 @@ External Links:
 [Visit Here](https://Google.com "Google Home Page")
 
 Image:   
-![Youtube](./assets/img/youtube.png)
+![Youtube](/assets/img/youtube.png)
 
-[![Youtube](./assets/img/youtube.png)](http://www.youtube.com "Link to Youtube")
+image: /assets/img/youtube.png
+
+[![Youtube](/assets/img/youtube.png)](http://www.youtube.com "Link to Youtube")
 ---
 
 Support html code<br>
