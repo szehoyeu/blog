@@ -36,11 +36,18 @@ _Italics_
 
 Normal 
 
-Links:
+External Links:
 [Visit Here](https://Google.com "Google Home Page")
 
 Image:   
-![Webpage](2024-01-26-test.markdown/assets/img/youtube.png "Youtube Logo")
+![Youtube](/assets/img/youtube.png)
+
+[![Youtube](/assets/img/youtube.png)](http://www.youtube.com "Link to Youtube")
+---
+
+Support html code<br>
+I<br>Love<br>Learning
+---
 
 Use `the script here ` script
 ``` powershell
@@ -49,7 +56,7 @@ $r = get-help
 ```
 
 Tables
-
+---
  |Table |Goes |Here |
  |--- |--- |--- |
  |One |Two |Three |
@@ -57,10 +64,59 @@ Tables
  >Keep doing it
 
  1. List one
- 2. List Two
- 3. List Three
+ 1. List Two
+ 1. List Three
         4 .List four
 
-
+---
  -List four 
+---
 
+> sdfsfdsfs
+>> terstssafds
+> -- <cite>Anthony Yeung</cite>
+
+---
+ - Get to learn Markdown today
+
+---
+Link to sections
+
+1. [test](#test)
+1. [test02](#test02)
+
+## test
+> fsfasfsfs
+
+## test02
+> sfdfsafar
+---
+## Task List Checkbox
+
+- [ ] Task #1
+- [ ] Task #2
+---
+
+## Table
+
+| Name | Current | Qty |
+| :------ | :------ | :------ |
+| Green | Green | Green |
+---
+<details>
+       <summary>Link: https://www.youtube.com/watch?v=bTVIMt3XllM</summary>
+
+       Hide from the Link section Here: 
+
+</details>
+---
+
+
+## Footnote
+Hapfsfdf [^1]
+ 
+ ## Footer
+ [^1]: By Anthony Yeung
+
+ ---
+ 
