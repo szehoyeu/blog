@@ -41,10 +41,11 @@ External Links:
 
 Image:   
 ![Youtube](/assets/img/youtube.png)
+![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/Img/Youtube.png "Link to Youtube")
 
 image: /assets/img/youtube.png
 
-[![Youtube](/assets/img/youtube.png)](http://www.youtube.com "Link to Youtube")
+[![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/Img/Youtube.png)](http://www.youtube.com "Link to Youtube")
 ---
 
 Support html code<br>
@@ -95,8 +96,8 @@ Link to sections
 ---
 ## Task List Checkbox
 
-- [ ] Task #1
-- [ ] Task #2
+ - [] Task #1
+ - [] Task #2
 ---
 
 ## Table
