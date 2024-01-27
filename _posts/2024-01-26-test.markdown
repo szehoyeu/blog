@@ -40,7 +40,7 @@ Links:
 [Visit Here](https://Google.com "Google Home Page")
 
 Image:   
-![Webpage](/assets/img/youtube.png "Youtube Logo")
+![Webpage](2024-01-26-test.markdown/assets/img/youtube.png "Youtube Logo")
 
 Use `the script here ` script
 ``` powershell
