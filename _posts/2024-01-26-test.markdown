@@ -41,7 +41,7 @@ External Links:
 
 Image:   
 ![Youtube]({{site.baseurl}}/assets/img/youtube.png)
-![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/Img/youtube.png "Link to Youtube")
+![Youtube](https://github.com/szehoyeu/blog/main/assets/img/youtube.png "Link to Youtube")
 
 image: /assets/img/youtube.png
 
