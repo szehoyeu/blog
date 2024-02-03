@@ -141,6 +141,17 @@ git add --all
 git commit -m "Comment on changes"
 git push -u origin main
 
+NOTE:
+git push --help
+
+
+If you have divergent branches and need to specify how to reconcile them.
+You can do so by running one of the following commands sometime before your next pull:
+
+git config pull.rebase false  # merge (the default strategy)
+git config pull.rebase true   # rebase
+git config pull.ff only       # fast-forward only
+
 -----------------------------
 
 bundle install
