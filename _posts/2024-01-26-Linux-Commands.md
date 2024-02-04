@@ -7,12 +7,13 @@ categories: Linux
 
 ## First release of Linux O/S
 > 1991
-
-<Details>Major Distributions
-    <Summary>
-    [DisroWatch](https://distrowatch.com/dwres.php?resource=major)
-    </Summary>
-</Details>
+<Summary>
+    <Details>Major Distributions
+    
+    
+    [DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
+    
+</Summary>
 
 ---
 ## Linux Connands
@@ -50,7 +51,7 @@ To sort by file size, use the -S (sort by file size) option.
 ls -l -h -S
 
 >  
-# Replace the content of the file 
+# Replace the content of the file
 
 >> 
 # Append the output to the end of the content 
