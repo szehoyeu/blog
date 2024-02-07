@@ -195,19 +195,19 @@ nmap -sS TARGET
         CASE: TCP port is open
 ```
 
-The following screenshot from Wireshark shows a TCP SYN scan. The behaviour in the case of closed TCP ports is similar to that of the TCP connect scan.
+
 
 To better see the difference between the two scans, consider the following screenshot. In the upper half of the following figure, we can see a TCP connect scan ```-sT``` traffic. Any open TCP port will require Nmap to complete the TCP 3-way handshake before closing the connection. 
 
 In the lower half of the following figure, we see how a SYN scan ```-sS``` does not need to complete the TCP 3-way handshake; instead, Nmap sends an RST packet once a SYN/ACK packet is received.
 
 
-TCP SYN scan is the default scan mode when running Nmap as a privileged user, running as root or using sudo, and it is a very reliable choice. It has successfully discovered the open ports you found earlier with the TCP connect scan, yet no TCP connection was fully established with the target.
+TCP SYN scan is the default scan mode when running Nmap as a ```privileged user```, running as root or using sudo, and it is a very reliable choice. It has successfully discovered the open ports you found earlier with the TCP connect scan, yet no TCP connection was fully established with the target.
 ```
-pentester@TryHackMe$ sudo nmap -sS 10.10.197.86
+sudo nmap -sS 10.10.236.200
 
 Starting Nmap 7.60 ( https://nmap.org ) at 2021-08-30 09:53 BST
-Nmap scan report for 10.10.197.86
+Nmap scan report for 10.10.236.200
 Host is up (0.0073s latency).
 Not shown: 994 closed ports
 PORT    STATE SERVICE
@@ -225,5 +225,25 @@ Nmap done: 1 IP address (1 host up) scanned in 1.60 seconds
 
 Launch the VM. Some new server software has been installed since the last time we scanned it. On the AttackBox, use the terminal to execute nmap -sS 10.10.197.86. What is the new open port?
 ```
+nmap -sT 10.10.236.200
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2024-02-07 21:41 GMT
+Nmap scan report for ip-10-10-236-200.eu-west-1.compute.internal (10.10.236.200)
+Host is up (0.00038s latency).
+Not shown: 993 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+25/tcp   open  smtp
+80/tcp   open  http
+110/tcp  open  pop3
+111/tcp  open  rpcbind
+143/tcp  open  imap
+6667/tcp open  irc
+MAC Address: 02:8F:5B:B8:56:3D (Unknown)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.39 seconds
+
+
+Port 6667 is the new open port
 
 ```

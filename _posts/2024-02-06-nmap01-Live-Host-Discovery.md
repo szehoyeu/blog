@@ -153,7 +153,7 @@ Discovering Live Hosts
 Let’s revisit the TCP/IP layers shown in the figure next. We will leverage the protocols to discover the live hosts. Starting from bottom to top, we can use:
 
 TCP/IP
-
+---
 Layer 1-2:ARP from Link Layer
 
 Layer 3:  ICMP from Network Layer
@@ -185,7 +185,7 @@ Nmap, by default, uses a ping scan to find live hosts, then proceeds to scan liv
 ARP scan is possible only if you are on the same subnet as the target systems. On an Ethernet (802.3) and WiFi (802.11), you need to know the MAC address of any system before you can communicate with it. The MAC address is necessary for the link-layer header; the header contains the source MAC address and the destination MAC address among other fields. To get the MAC address, the OS sends an ARP query. A host that replies to ARP queries is up. The ARP query only works if the target is on the same subnet as yourself, i.e., on the same Ethernet/WiFi. You should expect to see many ARP queries generated during a Nmap scan of a local network. If you want Nmap only to perform an ARP scan without port-scanning, you can use nmap -PR -sn TARGETS, where -PR indicates that you only want an ARP scan. The following example shows Nmap using ARP for host discovery without any port scanning. We run nmap -PR -sn MACHINE_IP/24 to discover all the live systems on the same subnet as our target machine.
 
 ```
-pentester@TryHackMe$ sudo nmap -PR -sn 10.10.210.6/24
+sudo nmap -PR -sn 10.10.210.6/24
 
 Starting Nmap 7.60 ( https://nmap.org ) at 2021-09-02 07:12 BST
 Nmap scan report for ip-10-10-210-75.eu-west-1.compute.internal (10.10.210.75)
@@ -219,7 +219,8 @@ Note that ```arp-scan``` is not installed on the AttackBox; however, it can be i
 In the example below, we scanned the subnet of the AttackBox using ```arp-scan ATTACKBOX_IP/24```. Since we ran this scan at a time frame close to the previous one ```nmap -PR -sn ATTACKBOX_IP/24```, we obtained the same three live targets.
 
 ```
-pentester@TryHackMe$ sudo arp-scan 10.10.210.6/24
+sudo arp-scan 10.10.210.6/24
+
 Interface: eth0, datalink type: EN10MB (Ethernet)
 WARNING: host part of 10.10.210.6/24 is non-zero
 Starting arp-scan 1.9 with 256 hosts (http://www.nta-monitor.com/tools/arp-scan/)
@@ -250,7 +251,7 @@ A                              Hosts
 In the example below, we scanned the target’s subnet using ```nmap -PE -sn MACHINE_IP/24```. This scan will send ICMP echo packets to every IP address on the subnet. Again, we expect live hosts to reply; however, it is wise to remember that many firewalls block ICMP. The output below shows the result of scanning the virtual machine’s class C subnet using ```sudo nmap -PE -sn MACHINE_IP/24``` from the AttackBox.
 
 ```
-pentester@TryHackMe$ sudo nmap -PE -sn 10.10.68.220/24
+sudo nmap -PE -sn 10.10.68.220/24
 
 Starting Nmap 7.60 ( https://nmap.org ) at 2021-09-02 10:16 BST
 Nmap scan report for ip-10-10-68-50.eu-west-1.compute.internal (10.10.68.50)
@@ -284,7 +285,7 @@ The scan output shows that eight hosts are up; moreover, it shows their MAC addr
 We will repeat the scan above; however, this time, we will scan from a system that belongs to a different subnet. The results are similar but without the MAC addresses.
 
 ```
-pentester@TryHackMe$ sudo nmap -PE -sn 10.10.68.220/24
+sudo nmap -PE -sn 10.10.68.220/24
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-09-02 12:16 EEST
 Nmap scan report for 10.10.68.50
@@ -324,7 +325,7 @@ In the following example, we run ```nmap -PP -sn MACHINE_IP/24``` to discover th
 
 
 ```
-pentester@TryHackMe$ sudo nmap -PP -sn 10.10.68.220/24
+sudo nmap -PP -sn 10.10.68.220/24
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-09-02 12:06 EEST
 Nmap scan report for 10.10.68.50
@@ -364,7 +365,7 @@ A                                     Hosts
 In an attempt to discover live hosts using ICMP address mask queries, we run the command ```nmap -PM -sn MACHINE_IP/24```. Although, based on earlier scans, we know that at least eight hosts are up, this scan returned none. The reason is that the target system or a firewall on the route is blocking this type of ICMP packet. Therefore, it is essential to learn multiple approaches to achieve the same result. If one type of packet is being blocked, we can always choose another to discover the target network and services.
 
 ```
-pentester@TryHackMe$ sudo nmap -PM -sn 10.10.68.220/24
+sudo nmap -PM -sn 10.10.68.220/24
 
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-09-02 12:13 EEST
 Nmap done: 256 IP addresses (0 hosts up) scanned in 52.17 seconds
@@ -391,7 +392,7 @@ What is the option required to tell Nmap to use ICMP Echo to discover live hosts
  =====================================
 
  TCP SYN Ping
-
+---
 We can send a packet with the SYN (Synchronize) flag set to a TCP port, 80 by default, and wait for a response. An open port should reply with a SYN/ACK (Acknowledge); a closed port would result in an RST (Reset). In this case, we only check whether we will get any response to infer whether the host is up. The specific state of the port is not significant here. The figure below is a reminder of how a TCP 3-way handshake usually works.
 
 
@@ -424,7 +425,8 @@ If you want Nmap to use TCP SYN ping, you can do so via the option ```-PS``` fol
 We will run ```nmap -PS -sn MACHINE_IP/24``` to scan the target VM subnet. As we can see in the output below, we were able to discover five hosts.
 
 ```
-pentester@TryHackMe$ sudo nmap -PS -sn 10.10.68.220/24
+sudo nmap -PS -sn 10.10.68.220/24
+
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-09-02 13:45 EEST
 Nmap scan report for 10.10.68.52
 Host is up (0.10s latency).
@@ -443,7 +445,7 @@ Let’s take a closer look at what happened behind the scenes by looking at the 
 
 
 TCP ACK Ping
-
+---
 As you have guessed, this sends a packet with an ACK flag set. You must be running Nmap as a ```privileged user``` to be able to accomplish this. If you try it as an unprivileged user, Nmap will attempt a 3-way handshake.
 
 By default, port 80 is used. The syntax is similar to TCP SYN ping. ```-PA``` should be followed by a port number, range, list, or a combination of them. For example, consider ```-PA21```, ```-PA21-25``` and ```-PA80,443,8080```. If no port is specified, port 80 will be used.
@@ -463,7 +465,7 @@ The following figure shows that any TCP packet with an ACK flag should get a TCP
 In this example, we run ```sudo nmap -PA -sn MACHINE_IP/24``` to discover the online hosts on the target’s subnet. We can see that the TCP ACK ping scan detected five hosts as up.
 
 ```
-pentester@TryHackMe$ sudo nmap -PA -sn 10.10.68.220/24
+sudo nmap -PA -sn 10.10.68.220/24
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-09-02 13:46 EEST
 Nmap scan report for 10.10.68.52
 Host is up (0.11s latency).
@@ -485,7 +487,7 @@ If we peek at the network traffic as shown in the figure below, we will discover
 
 
 UDP Ping
-
+---
 Finally, we can use UDP to discover if the host is online. Contrary to TCP SYN ping, sending a UDP packet to an open port is not expected to lead to any reply. However, if we send a UDP packet to a closed UDP port, we expect to get an ICMP port unreachable packet; this indicates that the target system is up and available.
 
 In the following figure, we see a UDP packet sent to an open UDP port and not triggering any response. However, sending a UDP packet to any closed UDP port can trigger a response indirectly indicating that the target is online.
@@ -517,7 +519,8 @@ In the following figure, we see a UDP packet sent to an open UDP port and not tr
 The syntax to specify the ports is similar to that of TCP SYN ping and TCP ACK ping; Nmap uses ```-PU``` for UDP ping. In the following example, we use a UDP scan, and we discover five live hosts.
 
 ```
-pentester@TryHackMe$ sudo nmap -PU -sn 10.10.68.220/24
+sudo nmap -PU -sn 10.10.68.220/24
+
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-09-02 13:45 EEST
 Nmap scan report for 10.10.68.52
 Host is up (0.10s latency).
@@ -535,7 +538,7 @@ Nmap done: 256 IP addresses (5 hosts up) scanned in 9.20 seconds
 Let’s inspect the UDP packets generated. In the following Wireshark screenshot, we notice Nmap sending UDP packets to UDP ports that are most likely closed. The image below shows that Nmap uses an uncommon UDP port to trigger an ICMP destination unreachable (port unreachable) error.
 
 Masscan
-
+---
 On a side note, Masscan uses a similar approach to discover the available systems. However, to finish its network scan quickly, Masscan is quite aggressive with the rate of packets it generates. The syntax is quite similar: ```-p``` can be followed by a port number, list, or range. Consider the following examples:
 ```
 masscan MACHINE_IP/24 -p443
