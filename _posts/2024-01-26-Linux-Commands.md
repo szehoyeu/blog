@@ -12,8 +12,8 @@ categories: Linux
 <Summary>Major Distributions
 </Summary>
 
-    [DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
-    
+[DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
+
 </Details>
     
 
