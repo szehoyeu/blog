@@ -7,13 +7,16 @@ categories: Linux
 
 ## First release of Linux O/S
 > 1991
-<Summary>
-    <Details>Major Distributions
-    
-    
+
+<Details>
+<Summary>Major Distributions
+</Summary>
+
     [DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
     
-</Summary>
+</Details>
+    
+
 
 ---
 ## Linux Connands
