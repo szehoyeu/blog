@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Learning Nmap"
+title:  "Learning Nmap - Port Scans"
 date:   2024-02-05 14:00:00 +0000
 categories: NMap - Basic Port Scans
 image: 

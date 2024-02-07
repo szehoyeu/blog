@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Learning Nmap"
-date:   2024-02-04 14:00:00 +0000
-categories: THM-NMap,RootMe, OpenVPN room
+title:  "Learning Nmap - Live Host Discovery"
+date:   2024-02-05 14:00:00 +0000
+categories: NMap - Live Host Disovery
 image: 
 ---
 
@@ -571,3 +571,39 @@ Using Reverse-DNS Lookup
 Nmap’s default behaviour is to use reverse-DNS online hosts. Because the hostnames can reveal a lot, this can be a helpful step. However, if you don’t want to send such DNS queries, you use ```-n``` to skip this step.
 
 By default, Nmap will look up online hosts; however, you can use the option -R to query the DNS server even for offline hosts. If you want to use a specific DNS server, you can add the ```--dns-servers DNS_SERVER``` option.
+
+
+We want Nmap to issue a reverse DNS lookup for all the possibles hosts on a subnet, hoping to get some insights from the names. What option should we add?
+```
+-R
+```
+
+Summary
+===
+
+
+
+
+```
+You have learned how ARP, ICMP, TCP, and UDP can detect live hosts by completing this room. Any response from a host is an indication that it is online. Below is a quick summary of the command-line options for Nmap that we have covered.
+
+Scan Type	            Example Command
+-------------------------------------------
+ARP Scan	            sudo nmap -PR -sn MACHINE_IP/24
+ICMP Echo Scan	        sudo nmap -PE -sn MACHINE_IP/24
+ICMP Timestamp Scan	    sudo nmap -PP -sn MACHINE_IP/24
+ICMP Address Mask Scan	sudo nmap -PM -sn MACHINE_IP/24
+TCP SYN Ping Scan	    sudo nmap -PS22,80,443 -sn MACHINE_IP/30
+TCP ACK Ping Scan	    sudo nmap -PA22,80,443 -sn MACHINE_IP/30
+UDP Ping Scan	        sudo nmap -PU53,161,162 -sn MACHINE_IP/30
+```
+
+Remember to add -sn if you are only interested in host discovery without port-scanning. Omitting -sn will let Nmap default to port-scanning the live hosts.
+
+```
+Option	Purpose
+-----------------------------------------
+-n	    no DNS lookup
+-R	    reverse-DNS lookup for all hosts
+-sn	    host discovery only
+```
