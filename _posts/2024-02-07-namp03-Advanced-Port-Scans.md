@@ -10,6 +10,7 @@ image:
 </summary>
 
 [Nmap Manual](https://nmap.org/book/man.html "Link to Manual")
+
 </Details>
 
 ---
@@ -19,7 +20,7 @@ In Nmap Basic Port Scans, we covered TCP flags and reviewed the TCP 3-way handsh
 Security researchers and hackers contemplated the TCP flags, shown in the figure below and explained in the previous room, and started to experiment. They wanted to know what would happen if we send a TCP packet, which is not part of any ongoing TCP connection, with one or more flags set.
 
 
-![TCP Header (RFC793)]({{site.baseurl}}/assets/img/tcp-header-rfc793.png)
+![TCP Header (RFC793)]({{site.url}}{{site.baseurl}}/assets/img/tcp-header-rfc793.png)
 
 
 For instance, an ACK flag is set when you want to acknowledge received data. An ACK scan is like trying to acknowledge data that was neither sent nor received in the first place. Consider this simple analogy, someone coming to you out of nowhere to tell you, “yes, I hear you, please continue.” when you haven’t said anything.
