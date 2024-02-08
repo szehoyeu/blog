@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "TryHackMe - Nmap - Advanced Port Scans"
+title:  "TryHackMe-Nmamp Advanced Port Scans"
 date:   2024-02-07 14:00:00 +0000
-categories: NMap - Advanced Port Scans
+categories: Nmap
 image: 
 ---
 <Details>
