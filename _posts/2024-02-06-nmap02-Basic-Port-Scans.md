@@ -85,10 +85,10 @@ Open
  ===
  Nmap supports different types of TCP port scans. To understand the difference between these port scans, we need to review the TCP header. The TCP header is the first 24 bytes of a TCP segment. The following figure shows the TCP header as defined in RFC 793. This figure looks sophisticated at first; however, it is pretty simple to understand. In the first row, we have the source TCP port number and the destination port number. We can see that the port number is allocated 16 bits (2 bytes). In the second and third rows, we have the sequence number and the acknowledgement number. Each row has 32 bits (4 bytes) allocated, with six rows total, making up 24 bytes.
 
-![TCP Header (RFC793)]({{site.baseurl}}/assets/img/tcp-header-rfc793.png)
+![TCP Header (RFC793)]({{site.baseurl}}/assets/Img/tcp-header-rfc793.png)
 
 
-![TCP Header (RFC793)](https://szehoyeu.github.io/blog/assets/img/tcp-header-rfc793.png)
+![TCP Header (RFC793)](https://szehoyeu.github.io/blog/assets/Img/tcp-header-rfc793.png)
 
 
  In particular, we need to focus on the flags that Nmap can set or unset. We have highlighted the TCP flags in red. Setting a flag bit means setting its value to 1. From left to right, the TCP header flags are:
