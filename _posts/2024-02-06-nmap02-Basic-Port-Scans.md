@@ -85,7 +85,11 @@ Open
  ===
  Nmap supports different types of TCP port scans. To understand the difference between these port scans, we need to review the TCP header. The TCP header is the first 24 bytes of a TCP segment. The following figure shows the TCP header as defined in RFC 793. This figure looks sophisticated at first; however, it is pretty simple to understand. In the first row, we have the source TCP port number and the destination port number. We can see that the port number is allocated 16 bits (2 bytes). In the second and third rows, we have the sequence number and the acknowledgement number. Each row has 32 bits (4 bytes) allocated, with six rows total, making up 24 bytes.
 
- ![TCP Header (RFC793)](/assets/img/tcp-header-rfc793.png)
+![TCP Header (RFC793)]({{site.baseurl}}/assets/img/tcp-header-rfc793.png)
+
+
+![TCP Header (RFC793)](https://szehoyeu.github.io/blog/assets/img/tcp-header-rfc793.png)
+
 
  In particular, we need to focus on the flags that Nmap can set or unset. We have highlighted the TCP flags in red. Setting a flag bit means setting its value to 1. From left to right, the TCP header flags are:
 ```
@@ -313,12 +317,32 @@ Nmap done: 1 IP address (1 host up) scanned in 1085.05 seconds
 Launch the VM. On the AttackBox, use the terminal to execute ```nmap -sU -F -v 10.10.236.200```. A new service has been installed since the last scan. What is the UDP port that is now open?
 
 ```
+
+53
+
 UDP port scan takes longer than TCP port scans. 
 
 The -F flag was added to speed up the scan (scan 100 most common instead of 1000). 
 
 We also added -v to get updates as the scan progresses.
 ```
+```
+Completed UDP Scan at 23:17, 107.78s elapsed (100 total ports)
+Nmap scan report for ip-10-10-119-111.eu-west-1.compute.internal (10.10.119.111)
+Host is up (0.00049s latency).
+Not shown: 97 closed ports
+PORT    STATE         SERVICE
+53/udp  open          domain
+68/udp  open|filtered dhcpc
+111/udp open          rpcbind
+MAC Address: 02:F2:D8:28:8D:4B (Unknown)
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 108.33 seconds
+           Raw packets sent: 357 (13.151KB) | Rcvd: 111 (6.921KB)
+
+```
+
 
 
 
