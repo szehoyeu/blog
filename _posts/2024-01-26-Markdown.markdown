@@ -41,12 +41,12 @@ External Links:
 [Visit Here](https://Google.com "Google Home Page")
 
 Image:   
-![Youtube]({{site.baseurl}}/assets/Img/youtube.png)
-![Youtube](https://github.com/szehoyeu/blog/assets/Img/youtube.png "Link to Youtube")
+![Youtube]({{site.baseurl}}/assets/img/youtube.png)
+![Youtube](https://github.com/szehoyeu/blog/assets/img/youtube.png "Link to Youtube")
 
-image: /assets/Img/youtube.png
+image: /assets/img/youtube.png
 
-[![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/Img/youtube.png)](http://www.youtube.com "Link to Youtube")
+[![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/img/youtube.png)](http://www.youtube.com "Link to Youtube")
 ---
 
 Support html code<br>
@@ -132,7 +132,7 @@ layout: post
 title:  "Learning Markdown"
 date:   2024-01-26 14:00:00 +0000
 categories: Git
-image: /assets/Img/youtube.png
+image: /assets/img/youtube.png
 ---
 
 Link: 
@@ -181,12 +181,12 @@ External Links:
 [Visit Here](https://Google.com "Google Home Page")
 
 Image:   
-![Youtube](/assets/Img/youtube.png)
-![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/Img/Youtube.png "Link to Youtube")
+![Youtube](/assets/img/youtube.png)
+![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/img/Youtube.png "Link to Youtube")
 
-image: /assets/Img/youtube.png
+image: /assets/img/youtube.png
 
-[![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/Img/Youtube.png)](http://www.youtube.com "Link to Youtube")
+[![Youtube](https://github.com/szehoyeu/blog/blob/main/assets/img/Youtube.png)](http://www.youtube.com "Link to Youtube")
 ---
 
 Support html code<br>
