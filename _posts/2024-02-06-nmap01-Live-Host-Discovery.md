@@ -1,12 +1,18 @@
 ---
 layout: post
-title:  "TryHackMe Learning Nmap - Live Host Discovery"
+title:  "TryHackMe - Nmap - Live Host Discovery"
 date:   2024-02-05 14:00:00 +0000
 categories: NMap - Live Host Disovery
 image: 
 ---
+<Details>
+<summary> Nmap Manual
+</summary>
 
+[Nmap Manual](https://nmap.org/book/man.html "Link to Manual")
+</Details>
 
+---
 We need to specify the targets we want to scan. Generally speaking, you can provide a list, a range, or a subnet. Examples of target specification are:
 
 list: MACHINE_IP scanme.nmap.org example.com will scan 3 IP addresses.
@@ -466,6 +472,7 @@ In this example, we run ```sudo nmap -PA -sn MACHINE_IP/24``` to discover the on
 
 ```
 sudo nmap -PA -sn 10.10.68.220/24
+
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-09-02 13:46 EEST
 Nmap scan report for 10.10.68.52
 Host is up (0.11s latency).
@@ -535,7 +542,7 @@ Host is up (0.11s latency).
 Nmap done: 256 IP addresses (5 hosts up) scanned in 9.20 seconds
 ```
 
-Let’s inspect the UDP packets generated. In the following Wireshark screenshot, we notice Nmap sending UDP packets to UDP ports that are most likely closed. The image below shows that Nmap uses an uncommon UDP port to trigger an ICMP destination unreachable (port unreachable) error.
+
 
 Masscan
 ---
