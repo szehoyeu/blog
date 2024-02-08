@@ -2,25 +2,17 @@
 layout: post
 title:  "Learning Markdown"
 date:   2024-01-26 14:00:00 +0000
-categories: Git
+categories: Markdown
 ---
 
 
-Link: 
-[Markdown](https://www.youtube.com/watch?v=bpdvNwvEeSE "Markdown Tutorial")
+Link: Tutorial
 
-Commit Changes in `Git`
-``` git
-git add --all
-git commit -m "Comment on changes"
-git push -u origin main
+- [Markdown - Youtube](https://www.youtube.com/watch?v=bpdvNwvEeSE "Markdown Tutorial")
+- [Markdown - Github](https://www.ihsantopaloglu.com/Jekyll-Markdown-Cheat-Sheet/)
+- [Markdown - Github Flavored](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#GitHub-flavored-markdown)
 
------------------------------
 
-bundle install
-bundle update
-bundle exec jekyll serve --livereload
-```
 
 
 # heading 1
