@@ -5,20 +5,12 @@ date:   2024-01-26 18:27:42 +0000
 categories: Linux
 ---
 
+[DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
+===
+
 ## First release of Linux O/S
 > 1991
 
-<Details>
-<Summary>Major Distributions
-</Summary>
-
-[DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
-
-</Details>
-    
-
-
----
 ## Linux Connands
 
 ```

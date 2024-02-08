@@ -224,7 +224,7 @@
   color: yellow;
 
   @include media-query($on-laptop) {
-    @include relative-font-size(2.25);
+    @include relative-font-size(2.0);
   }
 }
 

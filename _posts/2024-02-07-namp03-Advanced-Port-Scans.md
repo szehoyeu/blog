@@ -5,15 +5,10 @@ date:   2024-02-07 14:00:00 +0000
 categories: Nmap
 image: 
 ---
-<Details>
-<summary> Nmap Manual
-</summary>
-
 [Nmap Manual](https://nmap.org/book/man.html "Link to Manual")
+===
 
-</Details>
 
----
 
 In Nmap Basic Port Scans, we covered TCP flags and reviewed the TCP 3-way handshake. To initiate a connection, TCP requires the first packet to have the SYN flag set. Consequently, we can tell if a TCP port is open based on the response we receive.
 
