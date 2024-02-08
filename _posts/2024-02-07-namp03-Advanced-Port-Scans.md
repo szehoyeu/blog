@@ -60,17 +60,17 @@ A TCP packet with no flags set will not trigger any response when it reaches an 
 
 Therefore, from Nmap’s perspective, a lack of reply in a null scan indicates that either the port is open or a firewall is blocking the packet.
 
-![TCP Header]({{site.baseurl}}/assets/img/tcp-header-rfc793.png)
+![TCP Header]({{site.url}}{{site.baseurl}}/assets/img/tcp-header-rfc793.png)
 
 ```
 nmap -sN TARGET
 ```
 
-![NUll Scan TCP Open]({{site.baseurl}}/assets/img/null-scan-open.png)
+![NUll Scan TCP Open]({{site.url}}{{site.baseurl}}/assets/img/null-scan-open.png)
 
 However, we expect the target server to respond with an RST packet if the port is closed. ```Consequently, we can use the lack of RST response to figure out the ports that are not closed: open or filtered```.
 
-![NUll Scan TCP Closed]({{site.baseurl}}/assets/img/null-scan-close.png)
+![NUll Scan TCP Closed]({{site.url}}{{site.baseurl}}/assets/img/null-scan-close.png)
 
 Below is an example of a null scan against a Linux server. The null scan we carried out has successfully identified the six open ports on the target system. Because the null scan relies on the lack of a response to infer that the port is not closed, it cannot indicate with certainty that these ports are open; there is a possibility that the ports are not responding due to a firewall rule.
 
@@ -104,11 +104,11 @@ The FIN scan sends a TCP packet with the FIN flag set. You can choose this scan 
 nmap -sF TARGET
 ```
 
-![FIN Scan TCP Open]({{site.baseurl}}/assets/img/fin-scan-open.png)
+![FIN Scan TCP Open]({{site.url}}{{site.baseurl}}/assets/img/fin-scan-open.png)
 
 However, the target system should respond with an RST if the port is closed. Consequently, we will be able to know which ports are closed and use this knowledge to infer the ports that are open or filtered. It's worth noting some firewalls will 'silently' drop the traffic without sending an RST.
 
-![FIN Scan TCP Closed]({{site.baseurl}}/assets/img/fin-scan-close.png)
+![FIN Scan TCP Closed]({{site.url}}{{site.baseurl}}/assets/img/fin-scan-close.png)
 
 ```
 sudo nmap -sF MACHINE_IP
@@ -141,7 +141,7 @@ The following two figures show the case when the TCP port is open and the case w
 ```
 nmap -sX TARGET
 ```
-![Xmas Scan TCP]({{site.baseurl}}/assets/img/xmas-scan-openclose.png)
+![Xmas Scan TCP]({{site.url}}{{site.baseurl}}/assets/img/xmas-scan-openclose.png)
 
 The console output below shows an example of a Xmas scan against a Linux server. The obtained results are pretty similar to that of the null scan and the FIN scan.
 
@@ -249,7 +249,7 @@ This scan won’t work on most targets encountered in modern networks; however, 
 
 Most target systems respond with an RST packet regardless of whether the TCP port is open. In such a case, we won’t be able to discover the open ports. The figure below shows the expected behaviour in the cases of both open and closed TCP ports.
 
-![CP Maimon Scan]({{site.baseurl}}/assets/img/cp-maimon-scan.png)
+![CP Maimon Scan]({{site.url}}{{site.baseurl}}/assets/img/cp-maimon-scan.png)
 
 
 The console output below is an example of a TCP Maimon scan against a Linux server. As mentioned, because open ports and closed ports are behaving the same way, the Maimon scan could not discover any open ports on the target system.
@@ -283,7 +283,7 @@ An ACK scan will send a TCP packet with the ACK flag set. Use the ```-sA``` opti
 
 This behaviour happens because a TCP packet with the ACK flag set should be sent only in response to a received TCP packet to acknowledge the receipt of some data, unlike our case. Hence, ```this scan won’t tell us whether the target port is open in a simple setup.```
 
-![TCP ACK Scan]({{site.baseurl}}/assets/img/tcp-ack-scan.png)
+![TCP ACK Scan]({{site.url}}{{site.baseurl}}/assets/img/tcp-ack-scan.png)
 
 In the following example, we scanned the target VM before installing a firewall on it. As expected, we couldn’t learn which ports were open.
 
@@ -324,7 +324,7 @@ Another similar scan is the TCP window scan. The TCP window scan is almost the s
 
 As shown in the figure below, we expect to get an RST packet in reply to our “uninvited” ACK packets, regardless of whether the port is open or closed.
 
-![Window Scan]({{site.baseurl}}/assets/img/windows-scan.png)
+![Window Scan]({{site.url}}{{site.baseurl}}/assets/img/windows-scan.png)
 
 
 Similarly, launching a TCP window scan against a Linux system with no firewall will not provide much information. 
@@ -373,7 +373,7 @@ For instance, if you want to set SYN, RST, and FIN simultaneously, you can do so
 
 As shown in the figure below, if you develop your custom scan, you need to know how the different ports will behave to interpret the results in different scenarios correctly.
 
-![Custom Scan]({{site.baseurl}}/assets/img/custom-scan.png)
+![Custom Scan]({{site.url}}{{site.baseurl}}/assets/img/custom-scan.png)
 
 Finally, it is essential to note that the ACK scan and the window scan were very efficient at helping us map out the firewall rules. 
 
@@ -431,7 +431,7 @@ The following figure shows the attacker launching the command ```nmap -S SPOOFED
 
 For this scan to work and give accurate results, the attacker needs to monitor the network traffic to analyze the replies.
 
-![Spoofing]({{site.baseurl}}/assets/img/spoofing.png)
+![Spoofing]({{site.url}}{{site.baseurl}}/assets/img/spoofing.png)
 
 In brief, scanning with a spoofed IP address is three steps:
 
@@ -455,7 +455,7 @@ Spoofing only works in a minimal number of cases where certain conditions are me
 
 The concept is simple, make the scan appear to be coming from many IP addresses so that the attacker’s IP address would be lost among them. As we see in the figure below, the scan of the target machine will appear to be coming from 3 different sources, and consequently, the replies will go the decoys as well.
 
-![Decoy]({{site.baseurl}}/assets/img/decoy.png)
+![Decoy]({{site.url}}{{site.baseurl}}/assets/img/decoy.png)
 
 You can launch a decoy scan by specifying a specific or random IP address after -D. 
 
@@ -506,7 +506,7 @@ In particular, notice the source address taking 32 bits (4 bytes) on the fourth 
 
 To aid in the reassembly on the recipient side, IP uses the identification (ID) and fragment offset, shown on the second row of the figure below.
 
-![IP Header (RFC 791)]({{site.baseurl}}/assets/img/ip-header-rfc791.png)
+![IP Header (RFC 791)]({{site.url}}{{site.baseurl}}/assets/img/ip-header-rfc791.png)
 
 
 Let’s compare running ```sudo nmap -sS -p80 10.20.30.144``` and ```sudo nmap -sS -p80 -f 10.20.30.144```. As you know by now, this will use stealth TCP SYN scan on port 80; however, in the second command, we are requesting Nmap to fragment the IP packets.
@@ -515,11 +515,11 @@ In the first two lines, we can see an ARP query and response. Nmap issued an ARP
 
 The second two lines show a TCP SYN ping and a reply. The fifth line is the beginning of the port scan; Nmap sends a TCP SYN packet to port 80. In this case, the IP header is 20 bytes, and the TCP header is 24 bytes. Note that the minimum size of the TCP header is 20 bytes.
 
-![Wireshark]({{site.baseurl}}/assets/img/ws-ss.png)
+![Wireshark]({{site.url}}{{site.baseurl}}/assets/img/ws-ss.png)
 
 With fragmentation requested via ```-f```, the 24 bytes of the TCP header will be divided into multiples of 8 bytes, with the last fragment containing 8 bytes or less of the TCP header. Since 24 is divisible by 8, we got 3 IP fragments; each has 20 bytes of IP header and 8 bytes of TCP header. We can see the three fragments between the fifth and the seventh lines.
 
-![Wireshark]({{site.baseurl}}/assets/img/ws-ff.png)
+![Wireshark]({{site.url}}{{site.baseurl}}/assets/img/ws-ff.png)
 
 Note that if you added ```-ff (or -f -f)```, the fragmentation of the data will be multiples of 16. In other words, the 24 bytes of the TCP header, in this case, would be divided over two IP fragments, the first containing 16 bytes and the second containing 8 bytes of the TCP header.
 
@@ -549,17 +549,17 @@ The idle (zombie) scan requires the following three steps to discover whether a 
 Let’s explain with figures. In the figure below, we have the attacker system probing an idle machine, a multi-function printer. By sending a SYN/ACK, it responds with an RST packet containing its newly incremented IP ID.
 
 
-![Idle scan]({{site.baseurl}}/assets/img/idle-scan.png)
+![Idle scan]({{site.url}}{{site.baseurl}}/assets/img/idle-scan.png)
 
 The attacker will send a SYN packet to the TCP port they want to check on the target machine in the next step. However, this packet will use the idle host (zombie) IP address as the source. Three scenarios would arise. 
 
 In the first scenario, shown in the figure below, the TCP port is closed; therefore, the target machine responds to the idle host with an RST packet. The idle host does not respond; hence its IP ID is not incremented.
 
-![Idle scan 02]({{site.baseurl}}/assets/img/idle-scan02.png)
+![Idle scan 02]({{site.url}}{{site.baseurl}}/assets/img/idle-scan02.png)
 
 In the second scenario, as shown below, the TCP port is open, so the target machine responds with a SYN/ACK to the idle host (zombie). The idle host responds to this unexpected packet with an RST packet, thus incrementing its IP ID.
 
-![Idle scan 03]({{site.baseurl}}/assets/img/idle-scan03.png)
+![Idle scan 03]({{site.url}}{{site.baseurl}}/assets/img/idle-scan03.png)
 
 In the third scenario, the target machine does not respond at all due to firewall rules. This lack of response will lead to the same result as with the closed port; the idle host won’t increase the IP ID.
 
@@ -711,7 +711,7 @@ Option	            Purpose
 
             append random data to reach given length
 
-![Summary]({{site.baseurl}}/assets/img/summary-port-scan.png)
+![Summary]({{site.url}}{{site.baseurl}}/assets/img/summary-port-scan.png)
 
 
 Option	            Purpose
