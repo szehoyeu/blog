@@ -747,7 +747,51 @@ Note that the username pentester has the password THM17577
 Check the attached Nmap logs. How many systems are listening on the HTTPS port?
 
 ```
-THM17577
-scp pentester@10.10.30.219:/home/pentester/* .
+==>3
 
+THM17577
+
+scp pentester@10.10.47.162:/home/pentester/* .
+The authenticity of host '10.10.47.162 (10.10.47.162)' can't be established.
+ECDSA key fingerprint is SHA256:7nAnTb7yshNlMCglzSxnNAlTmu1xntwDZ/PeIHRViDM.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.10.47.162' (ECDSA) to the list of known hosts.
+pentester@10.10.47.162's password: 
+scan_172_17_network.gnmap                     100%   13KB  11.6MB/s   00:00    
+scan_172_17_network.nmap                      100%   17KB  12.3MB/s   00:00  
+
+
+grep https scan_172_17_network.gnmap  
+Host: 172.17.0.215 ()	Ports: 22/closed/tcp//ssh///, 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: filtered (997)
+Host: 172.17.19.249 ()	Ports: 22/open/tcp//ssh///, 53/open/tcp//domain///, 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: closed (996)
+Host: 172.17.23.240 ()	Ports: 22/closed/tcp//ssh///, 80/open/tcp//http///, 443/open/tcp//https///	Ignored State: filtered (997)
+
+
+```
+
+What is the IP address of the system listening on port 8089?
+```
+grep 8089 scan_172_17_network.gnmap 
+Host: 172.17.20.147 ()	Ports: 22/open/tcp//ssh///, 8000/open/tcp//http-alt///, 8089/open/tcp//unknown///	Ignored State: closed (997)
+```
+
+Summary
+===
+```
+we learned how to detect the running services and their versions along with the host operating system. We learned how to enable traceroute and we covered selecting one or more scripts to aid in penetration testing. Finally, we covered the different formats to save the scan results for future reference. The table below summarizes the most important options we covered in this room.
+
+Option	                Meaning
+---------------------------------------------------------------------
+-sV	                    determine service/version info on open ports
+-sV --version-light	    try the most likely probes (2)
+-sV --version-all	    try all available probes (9)
+-O	                    detect OS
+--traceroute	        run traceroute to target
+--script=SCRIPTS	    Nmap scripts to run
+-sC or --script=default	run default scripts
+-A	                    equivalent to -sV -O -sC --traceroute
+-oN	                    save output in normal format
+-oG	                    save output in grepable format
+-oX	                    save output in XML format
+-oA	                    save output in normal, XML and Grepable formats
 ```
