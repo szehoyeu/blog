@@ -306,11 +306,448 @@ default	                        Default scripts, same as -sC
 discovery                       Retrieve accessible information, such as database tables and DNS names
 dos                             Detects servers vulnerable to Denial of Service (DoS)
 exploit	                        Attempts to exploit various vulnerable services
-external	                    Checks using a third-party service, such as Geoplugin and Virustotal
+external                        Checks using a third-party service, such as Geoplugin and Virustotal
 fuzzer	                        Launch fuzzing attacks
 intrusive                       Intrusive scripts such as brute-force attacks and exploitation
 malware	                        Scans for backdoors
 safe	                        Safe scripts that won’t crash the target
 version	                        Retrieve service versions
 vuln	                        Checks for vulnerabilities or exploit vulnerable services
+```
+
+---
+
+Some scripts belong to more than one category. Moreover, some scripts launch brute-force attacks against services, while others launch DoS attacks and exploit systems. Hence, it is crucial to be careful when selecting scripts to run if you don’t want to crash services or exploit them.
+
+We use Nmap to run a SYN scan against 10.10.234.78 and execute the default scripts in the console shown below. 
+The command is ```sudo nmap -sS -sC 10.10.234.78```, where ```-sC``` will ensure that Nmap will execute the default scripts following the SYN scan. There are new details that appear below. 
+
+Take a look at the SSH service at port 22; Nmap recovered all four public keys related to the running server. Consider another example, the HTTP service at port 80; Nmap retrieved the default page title. We can see that the page has been left as default.
+
+```
+sudo nmap -sS -sC 10.10.234.78
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2021-09-10 05:08 BST
+Nmap scan report for ip-10-10-161-170.eu-west-1.compute.internal (10.10.161.170)
+Host is up (0.0011s latency).
+Not shown: 994 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+| ssh-hostkey: 
+|   1024 d5:80:97:a3:a8:3b:57:78:2f:0a:78:ae:ad:34:24:f4 (DSA)
+|   2048 aa:66:7a:45:eb:d1:8c:00:e3:12:31:d8:76:8e:ed:3a (RSA)
+|   256 3d:82:72:a3:07:49:2e:cb:d9:87:db:08:c6:90:56:65 (ECDSA)
+|_  256 dc:f0:0c:89:70:87:65:ba:52:b1:e9:59:f7:5d:d2:6a (EdDSA)
+25/tcp  open  smtp
+|_smtp-commands: debra2.thm.local, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN, 
+| ssl-cert: Subject: commonName=debra2.thm.local
+| Not valid before: 2021-08-10T12:10:58
+|_Not valid after:  2031-08-08T12:10:58
+|_ssl-date: TLS randomness does not represent time
+80/tcp  open  http
+|_http-title: Welcome to nginx on Debian!
+110/tcp open  pop3
+|_pop3-capabilities: RESP-CODES CAPA TOP SASL UIDL PIPELINING AUTH-RESP-CODE
+111/tcp open  rpcbind
+| rpcinfo: 
+|   program version   port/proto  service
+|   100000  2,3,4        111/tcp  rpcbind
+|   100000  2,3,4        111/udp  rpcbind
+|   100024  1          38099/tcp  status
+|_  100024  1          54067/udp  status
+143/tcp open  imap
+|_imap-capabilities: LITERAL+ capabilities IMAP4rev1 OK Pre-login ENABLE have LOGINDISABLEDA0001 listed SASL-IR ID more post-login LOGIN-REFERRALS IDLE
+MAC Address: 02:A0:E7:B5:B6:C5 (Unknown)
+
+Nmap done: 1 IP address (1 host up) scanned in 2.21 seconds
+```
+
+You can also specify the script by name using ```--script "SCRIPT-NAME"``` or a pattern such as ```--script "ftp*"```, which would include ftp-brute. If you are unsure what a script does, you can open the script file with a text reader, such as ```less```, or a text editor. In the case of ```ftp-brute```, it states: “Performs brute force password auditing against FTP servers.” You have to be careful as some scripts are pretty intrusive. Moreover, some scripts might be for a specific server and, if chosen at random, will waste your time with no benefit. As usual, make sure that you are authorized to launch such tests on the target server.
+
+---
+
+Let’s consider a benign script, ```http-date```, which we guess would retrieve the http server date and time, and this is indeed confirmed in its description: “Gets the date from HTTP-like services. Also, it prints how much the date differs from local time…” On the AttackBox, we execute ```sudo nmap -sS -n --script "http-date" 10.10.234.78``` as shown in the console below.
+
+
+```
+sudo nmap -sS -n --script "http-date" 10.10.234.78
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2021-09-10 08:04 BST
+Nmap scan report for 10.10.234.78
+Host is up (0.0011s latency).
+Not shown: 994 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+25/tcp  open  smtp
+80/tcp  open  http
+|_http-date: Fri, 10 Sep 2021 07:04:26 GMT; 0s from local time.
+110/tcp open  pop3
+111/tcp open  rpcbind
+143/tcp open  imap
+MAC Address: 02:44:87:82:AC:83 (Unknown)
+
+Nmap done: 1 IP address (1 host up) scanned in 1.78 seconds
+```
+
+Finally, you might expand the functionality of Nmap beyond the official Nmap scripts; you can write your script or download Nmap scripts from the Internet. Downloading and using a Nmap script from the Internet holds a certain level of risk. So it is a good idea not to run a script from an author you don’t trust.
+
+---
+
+
+Knowing that Nmap scripts are saved in /usr/share/nmap/scripts on the AttackBox. What does the script http-robots.txt check for?
+```
+disallowed entries
+
+local http = require "http"
+local nmap = require "nmap"
+local shortport = require "shortport"
+local strbuf = require "strbuf"
+local table = require "table"
+
+description = [[
+Checks for disallowed entries in <code>/robots.txt</code> on a web server.
+
+The higher the verbosity or debug level, the more disallowed entries are shown.
+]]
+
+---
+--@output
+-- 80/tcp  open   http    syn-ack
+-- |  http-robots.txt: 156 disallowed entries (40 shown)
+-- |  /news?output=xhtml& /search /groups /images /catalogs
+-- |  /catalogues /news /nwshp /news?btcid=*& /news?btaid=*&
+-- |  /setnewsprefs? /index.html? /? /addurl/image? /pagead/ /relpage/
+-- |  /relcontent /sorry/ /imgres /keyword/ /u/ /univ/ /cobrand /custom
+-- |  /advanced_group_search /googlesite /preferences /setprefs /swr /url /default
+-- |  /m? /m/? /m/lcb /m/news? /m/setnewsprefs? /m/search? /wml?
+-- |_ /wml/? /wml/search?
+
+
+
+author = "Eddie Bell"
+license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
+categories = {"default", "discovery", "safe"}
+
+portrule = shortport.http
+local last_len = 0
+
+-- split the output in 50 character length lines
+local function buildOutput(output, w)
+  local nl
+
+  if w:len() == 0 then
+    return nil
+  end
+
+  -- check for duplicates
+  for i,v in ipairs(output) do
+    if w == v or w == v:sub(2, v:len()) then
+      return nil
+    end
+  end
+
+  -- format lines
+  if last_len == 0 or last_len + w:len() <= 50 then
+    last_len = last_len + w:len()
+    nl = ''
+  else
+    last_len = 0
+    nl = '\n'
+  end
+
+  output = output .. (nl .. w)
+end
+
+-- parse all disallowed entries in body and add them to a strbuf
+local function parse_robots(body, output)
+  for line in body:gmatch("[^\r\n]+") do
+    for w in line:gmatch('[Dd]isallow:%s*(.*)') do
+      w = w:gsub("%s*#.*", "")
+      buildOutput(output, w)
+    end
+  end
+
+  return #output
+end
+
+action = function(host, port)
+  local dis_count, noun
+  local answer = http.get(host, port, "/robots.txt" )
+
+  if answer.status ~= 200 then
+    return nil
+  end
+
+  local v_level = nmap.verbosity() + (nmap.debugging()*2)
+  local output = strbuf.new()
+  local detail = 15
+
+  dis_count = parse_robots(answer.body, output)
+
+  if dis_count == 0 then
+    return
+  end
+
+  -- verbose/debug mode, print 50 entries
+  if v_level > 1 and v_level < 5 then
+    detail = 40
+  -- double debug mode, print everything
+  elseif v_level >= 5 then
+    detail = dis_count
+  end
+
+  -- check we have enough entries
+  if detail > dis_count then
+    detail = dis_count
+  end
+
+  noun = dis_count == 1 and "entry " or "entries "
+
+  local shown = (detail == 0 or detail == dis_count)
+    and "\n" or '(' .. detail .. ' shown)\n'
+
+  return  dis_count .. " disallowed " .. noun ..
+    shown .. table.concat(output, ' ', 1, detail)
+end
+```
+
+Can you figure out the name for the script that checks for the remote code execution vulnerability MS15-034 (CVE2015-1635)?
+```
+ms15-034 exploit
+
+=> http-vuln-cve2015-1635.nse
+
+```
+
+
+Launch the AttackBox if you haven't already. After you ensure you have terminated the VM from Task 2, start the target machine for this task. On the AttackBox, run Nmap with the default scripts -sC against 10.10.234.78. You will notice that there is a service listening on port 53. What is its full version value?
+```
+=> 9.9.5-9+deb8u19-Debian
+
+
+
+nmap -sC 10.10.234.78
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2024-02-09 00:19 GMT
+Nmap scan report for ip-10-10-234-78.eu-west-1.compute.internal (10.10.234.78)
+Host is up (0.00077s latency).
+Not shown: 993 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+| ssh-hostkey: 
+|   1024 d5:80:97:a3:a8:3b:57:78:2f:0a:78:ae:ad:34:24:f4 (DSA)
+|   2048 aa:66:7a:45:eb:d1:8c:00:e3:12:31:d8:76:8e:ed:3a (RSA)
+|   256 3d:82:72:a3:07:49:2e:cb:d9:87:db:08:c6:90:56:65 (ECDSA)
+|_  256 dc:f0:0c:89:70:87:65:ba:52:b1:e9:59:f7:5d:d2:6a (EdDSA)
+25/tcp  open  smtp
+|_smtp-commands: debra2.thm.local, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN, 
+| ssl-cert: Subject: commonName=debra2.thm.local
+| Not valid before: 2021-08-10T12:10:58
+|_Not valid after:  2031-08-08T12:10:58
+|_ssl-date: TLS randomness does not represent time
+53/tcp  open  domain
+| dns-nsid: 
+|_  bind.version: 9.9.5-9+deb8u19-Debian
+80/tcp  open  http
+|_http-title: Welcome to nginx on Debian!
+110/tcp open  pop3
+|_pop3-capabilities: SASL RESP-CODES CAPA TOP AUTH-RESP-CODE UIDL PIPELINING
+111/tcp open  rpcbind
+| rpcinfo: 
+|   program version   port/proto  service
+|   100000  2,3,4        111/tcp  rpcbind
+|   100000  2,3,4        111/udp  rpcbind
+|   100024  1          35996/tcp  status
+|_  100024  1          57634/udp  status
+143/tcp open  imap
+|_imap-capabilities: more SASL-IR LITERAL+ ID OK have LOGIN-REFERRALS ENABLE LOGINDISABLEDA0001 IMAP4rev1 post-login IDLE capabilities Pre-login listed
+MAC Address: 02:26:7F:B2:F2:13 (Unknown)
+
+Nmap done: 1 IP address (1 host up) scanned in 10.35 seconds
+
+```
+
+
+Based on its description, the script ssh2-enum-algos “reports the number of algorithms (for encryption, compression, etc.) that the target SSH2 server offers.” What is the name of the key exchange algorithms (kex_algorithms) that relies upon “sha1” and is supported by 10.10.234.78?
+```
+=> diffie-hellman-group14-sha1
+
+
+sudo nmap -sS -n --script "ssh2-enum-algos" 10.10.234.78
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2024-02-09 00:26 GMT
+Nmap scan report for 10.10.234.78
+Host is up (0.00069s latency).
+Not shown: 993 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+| ssh2-enum-algos: 
+|   kex_algorithms: (6)
+|       curve25519-sha256@libssh.org
+|       ecdh-sha2-nistp256
+|       ecdh-sha2-nistp384
+|       ecdh-sha2-nistp521
+|       diffie-hellman-group-exchange-sha256
+|       diffie-hellman-group14-sha1
+|   server_host_key_algorithms: (4)
+|       ssh-rsa
+|       ssh-dss
+|       ecdsa-sha2-nistp256
+|       ssh-ed25519
+|   encryption_algorithms: (6)
+|       aes128-ctr
+|       aes192-ctr
+|       aes256-ctr
+|       aes128-gcm@openssh.com
+|       aes256-gcm@openssh.com
+|       chacha20-poly1305@openssh.com
+|   mac_algorithms: (10)
+|       umac-64-etm@openssh.com
+|       umac-128-etm@openssh.com
+|       hmac-sha2-256-etm@openssh.com
+|       hmac-sha2-512-etm@openssh.com
+|       hmac-sha1-etm@openssh.com
+|       umac-64@openssh.com
+|       umac-128@openssh.com
+|       hmac-sha2-256
+|       hmac-sha2-512
+|       hmac-sha1
+|   compression_algorithms: (2)
+|       none
+|_      zlib@openssh.com
+25/tcp  open  smtp
+53/tcp  open  domain
+80/tcp  open  http
+110/tcp open  pop3
+111/tcp open  rpcbind
+143/tcp open  imap
+MAC Address: 02:26:7F:B2:F2:13 (Unknown)
+
+Nmap done: 1 IP address (1 host up) scanned in 1.96 seconds
+
+
+```
+
+
+Saving the Output
+===
+
+Whenever you run a Nmap scan, it is only reasonable to save the results in a file. Selecting and adopting a good naming convention for your filenames is also crucial. The number of files can quickly grow and hinder your ability to find a previous scan result. The three main formats are:
+
+1. Normal
+1. Grepable (grepable)
+1. XML
+
+There is a fourth one that we cannot recommend:
+
+1. Script Kiddie
+
+
+Normal
+---
+
+As the name implies, the normal format is similar to the output you get on the screen when scanning a target. You can save your scan in normal format by using ```-oN FILENAME```; N stands for normal. Here is an example of the result.
+
+```
+cat 10.10.234.78_scan.nmap 
+# Nmap 7.60 scan initiated Fri Sep 10 05:14:19 2021 as: nmap -sS -sV -O -oN 10.10.234.78_scan MACHINE_IP
+Nmap scan report for 10.10.234.78
+Host is up (0.00086s latency).
+Not shown: 994 closed ports
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0)
+25/tcp  open  smtp    Postfix smtpd
+80/tcp  open  http    nginx 1.6.2
+110/tcp open  pop3    Dovecot pop3d
+111/tcp open  rpcbind 2-4 (RPC #100000)
+143/tcp open  imap    Dovecot imapd
+MAC Address: 02:A0:E7:B5:B6:C5 (Unknown)
+Device type: general purpose
+Running: Linux 3.X
+OS CPE: cpe:/o:linux:linux_kernel:3.13
+OS details: Linux 3.13
+Network Distance: 1 hop
+Service Info: Host:  debra2.thm.local; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Fri Sep 10 05:14:28 2021 -- 1 IP address (1 host up) scanned in 9.99 seconds
+```
+
+Grepable
+---
+
+The grepable format has its name from the command ```grep```; grep stands for ```Global Regular Expression Printer```. In simple terms, it makes filtering the scan output for specific keywords or terms efficient.
+
+ You can save the scan result in grepable format using ```-oG FILENAME```. The scan output, displayed above in normal format, is shown in the console below using grepable format. The normal output is 21 lines; however, the grepable output is only 4 lines. 
+ 
+The main reason is that Nmap wants to make each line meaningful and complete when the user applies grep. As a result, in grepable output, the lines are so long and are not convenient to read compared to normal output.
+
+```
+cat 10.10.234.78_scan.gnmap 
+# Nmap 7.60 scan initiated Fri Sep 10 05:14:19 2021 as: nmap -sS -sV -O -oG 10.10.234.78_scan MACHINE_IP
+Host: 10.10.234.78	Status: Up
+Host: MACHINE_IP	Ports: 22/open/tcp//ssh//OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0)/, 25/open/tcp//smtp//Postfix smtpd/, 80/open/tcp//http//nginx 1.6.2/, 110/open/tcp//pop3//Dovecot pop3d/, 111/open/tcp//rpcbind//2-4 (RPC #100000)/, 143/open/tcp//imap//Dovecot imapd/	Ignored State: closed (994)	OS: Linux 3.13	Seq Index: 257	IP ID Seq: All zeros
+# Nmap done at Fri Sep 10 05:14:28 2021 -- 1 IP address (1 host up) scanned in 9.99 seconds
+```
+
+
+An example use of grep is ```grep KEYWORD TEXT_FILE```; this command will display all the lines containing the provided keyword. Let’s compare the output of using ```grep``` on normal output and grepable output. 
+
+```
+grep http 10.10.234.78_scan.nmap 
+80/tcp  open  http    nginx 1.6.2
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+```
+
+You will notice that the former does not provide the IP address of the host. Instead, it returned ```80/tcp open http nginx 1.6.2```, making it very inconvenient if you are sifting through the scan results of multiple systems. However, the latter provides enough information, such as the host’s IP address, in each line to make it complete.
+
+```
+grep http 10.10.234.78_scan.gnmap 
+Host: 10.10.234.78	Ports: 22/open/tcp//ssh//OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0)/, 25/open/tcp//smtp//Postfix smtpd/, 80/open/tcp//http//nginx 1.6.2/, 110/open/tcp//pop3//Dovecot pop3d/, 111/open/tcp//rpcbind//2-4 (RPC #100000)/, 143/open/tcp//imap//Dovecot imapd/	Ignored State: closed (994)	OS: Linux 3.13	Seq Index: 257	IP ID Seq: All zeros
+```
+
+XML
+---
+The third format is XML. You can save the scan results in XML format using ```-oX FILENAME```. The XML format would be most convenient to process the output in other programs. Conveniently enough, you can save the scan output in all three formats using ```-oA FILENAME``` to combine ```-oN, -oG, and -oX``` for normal, grepable, and XML.
+
+
+Script Kiddie
+---
+
+A fourth format is script kiddie. You can see that this format is useless if you want to search the output for any interesting keywords or keep the results for future reference. 
+
+However, you can use it to save the output of the scan ```nmap -sS 127.0.0.1 -oS FILENAME```, display the output filename, and look 31337 in front of friends who are not tech-savvy.
+
+```
+cat 10.10.234.78_scan.kiddie 
+
+$tart!ng nMaP 7.60 ( httpz://nMap.0rG ) at 2021-09-10 05:17 B$T
+Nmap scan rEp0rt f0r |p-10-10-161-170.EU-w3$t-1.C0mputE.intErnaL (10.10.161.170)
+HOSt !s uP (0.00095s LatEncy).
+N0T $H0wn: 994 closed pOrtS
+PoRT    st4Te SeRViC3 VERS1on
+22/tcp  Open  ssH     Op3n$$H 6.7p1 Deb|an 5+dEb8u8 (pr0t0COl 2.0)
+25/tCp  Op3n  SmTp    P0$Tf!x Smtpd
+80/tcp  0p3n  http    Ng1nx 1.6.2
+110/tCP 0pen  pOP3    d0v3coT P0p3D
+111/TcP op3n  RpcbInd 2-4 (RPC #100000)
+143/Tcp opEn  Imap    Dovecot 1mApd
+mAC 4Ddr3sz: 02:40:e7:B5:B6:c5 (Unknown)
+Netw0rk d!stanc3: 1 h0p
+$3rv1c3 InFO: Ho$t:  dEBra2.thM.lOcal; 0s: Linux; cPe: cP3:/0:linux:l|nux_k3rnel
+
+0S and servIc3 D3tEcti0n pErf0rm3d. Plea$e r3p0rt any !nc0RrecT rE$ultz at hTtpz://nmap.0rg/$ubmit/ .
+Nmap d0nE: 1 |P addr3SS (1 hoSt up) $CaNnEd !n 21.80 s3c0Ndz
+```
+---
+Terminate the target machine of the previous task and start the target machine for this task. On the AttackBox terminal, issue the command scp pentester@10.10.234.78:/home/pentester/* . to download the Nmap reports in normal and grepable formats from the target virtual machine.
+
+Note that the username pentester has the password THM17577
+
+Check the attached Nmap logs. How many systems are listening on the HTTPS port?
+
+```
+THM17577
+scp pentester@10.10.30.219:/home/pentester/* .
+
 ```
