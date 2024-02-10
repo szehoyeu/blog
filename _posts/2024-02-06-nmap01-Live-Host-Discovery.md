@@ -10,7 +10,8 @@ Ref:
 - [THM link:](https://tryhackme.com/room/nmap01)
 - [Nmap Manual](https://nmap.org/book/man.html "Link to Manual")
 
-===
+---
+
 We need to specify the targets we want to scan. Generally speaking, you can provide a list, a range, or a subnet. Examples of target specification are:
 
 list: MACHINE_IP scanme.nmap.org example.com will scan 3 IP addresses.
