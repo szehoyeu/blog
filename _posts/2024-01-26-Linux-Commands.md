@@ -3,6 +3,7 @@ layout: post
 title:  "TryHackMe Linux Commands"
 date:   2024-01-26 18:27:42 +0000
 categories: Linux
+image: /blog/assets/img/linux.png
 ---
 
 [DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
