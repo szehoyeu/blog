@@ -7,6 +7,7 @@ image: /blog/assets/img/linux.png
 ---
 Ref: 
 - [DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
+- [THM Linux Fundamentals 01:](https://tryhackme.com/room/linuxfundamentalspart1)
 
 ---
 
@@ -117,10 +118,33 @@ Looking through 244 entries isn't all that efficient considering we want to find
 Use grep to search the entire contents of this file for any entries of the value that we are searching for.
 
 
+```
+wc -l access.log
 
+244 access.log
+```
+```
+grep "81.143.211.90" access.log
+81.143.211.90 - - [25/Mar/2021:11:17 + 0000] "GET / HTTP/1.1" 200 417 "-" "Mozilla/5.0 (Linux; Android 7.0; Moto G(4))"
+```
 
+Use grep on "access.log" to find the flag that has a prefix of "THM". What is the flag?
+```
+=>THM{ACCESS}
 
+grep "THM" access.log
 
+13.127.130.212 - - [04/May/2021:08:35:26 +0000] "GET THM{ACC
+ESS} lang=en HTTP/1.1" 404 360 "-" "Mozilla/5.0 (Windows NT 
+10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chr
+ome/77.0.3865.120 Safari/537.36"
+
+```
+
+Linux operators
+---
+
+![Linux Operators]({{site.baseurl}}/assets/img/linux-cmd02.png)
 
 
 
