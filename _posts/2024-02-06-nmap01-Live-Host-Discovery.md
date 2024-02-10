@@ -3,7 +3,7 @@ layout: post
 title:  "TryHackMe-Nmap Live Host Discovery"
 date:   2024-02-05 14:00:00 +0000
 categories: Nmap
-image: 
+image: /blog/assets/img/nmap-header.png
 ---
 
 Ref:
