@@ -7,7 +7,8 @@ image: /blog/assets/img/linux.png
 ---
 
 [DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
-===
+
+
 
 ## First release of Linux O/S
 > 1991

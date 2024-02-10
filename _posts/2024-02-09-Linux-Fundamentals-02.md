@@ -1,7 +1,6 @@
-
 ---
 layout: post
-title:  "Linux Fundamentals 01"
+title:  "Linux Fundamentals 02"
 date:   2024-02-09 14:00:00 +0000
 categories: Linux
 image: /blog/assets/img/linux.png
