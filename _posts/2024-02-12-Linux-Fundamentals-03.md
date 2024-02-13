@@ -328,3 +328,15 @@ This script will keep on repeating "This will keep on looping until I stop!" unt
 
 Foregrounding a process
 ---
+We have a process running in the background, for example, our script "background.sh" which can be confirmed by using the ```ps aux``` command, we can back-pedal and bring this ```process back to the foreground``` to interact with.
+
+```
+ps aux
+```
+![Foreground]({{site.baseurl}}/assets/img/foreground023png)
+
+```
+fg
+```
+
+With our process ```backgrounded``` using either ```Ctrl + Z``` or the ```&``` operator, we can use ```fg``` to bring this back to focus like below, where we can see the ```fg``` command is being used to bring the background process back into use on the terminal, where the output of the script is now returned to us.
