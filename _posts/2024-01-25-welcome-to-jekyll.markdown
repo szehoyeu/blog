@@ -23,3 +23,19 @@ Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most ou
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
+
+
+Overriding theme defaultsPermalink
+---
+[Link: Theme](https://jekyllrb.com/docs/themes/)
+Jekyll themes set default data, layouts, includes, and stylesheets. However, you can override any of the theme defaults with your own site content.
+
+To replace layouts or includes in your theme, make a copy in your _layouts or _includes directory of the specific file you wish to modify, or create the file from scratch giving it the same name as the file you wish to override.
+
+For example, if your selected theme has a page layout, you can override the theme’s layout by creating your own page layout in the _layouts directory (that is, _layouts/page.html).
+
+To locate a theme’s files on your computer:
+
+Run bundle info --path followed by the name of the theme’s gem, e.g., bundle info --path minima for Jekyll’s default theme.
+
+This returns the location of the gem-based theme files. For example, the Minima theme’s files might be located in /usr/local/lib/ruby/gems/2.6.0/gems/minima-2.5.1 on macOS.
