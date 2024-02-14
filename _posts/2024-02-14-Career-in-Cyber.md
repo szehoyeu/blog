@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "THM: Career im Cyber"
+title:  "THM: Careers in Cyber"
 date:   2024-02-14 18:00:00 +0000
 categories: Blue
 image: /blog/assets/img/careers-in-cyber-hdr.png
@@ -10,8 +10,10 @@ Ref:
 
 ---
 
+
 Task1: Introduction
-===
+---
+
 Cyber security careers are becoming more in demand and offer high salaries. There are many different jobs within the security industry, from offensive pentesting (hacking machines and reporting on vulnerabilities) to defensive security (defending against and investigating cyberattacks).
 
 Why get a career in cyber:
@@ -127,3 +129,9 @@ TryHackMe's learning paths will give you both the fundamental technical knowledg
 - [JR Penetration Tester](https://tryhackme.com/path/outline/jrpenetrationtester)
 - [Offensive Pentesting](https://tryhackme.com/path/outline/pentesting)
 - [Red Teamer](https://tryhackme.com/path/outline/redteaming)
+
+
+[Leverage online training to land your dream job](https://tryhackme.com/resources/blog/online-training-for-careers)
+
+
+Security Analyst
