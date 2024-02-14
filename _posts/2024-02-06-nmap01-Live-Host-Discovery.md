@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "THM:Nmap Live Host Discovery 01"
+title:  "THM: Nmap Live Host Discovery 01"
 date:   2024-02-05 14:00:00 +0000
 categories: Nmap
 image: /blog/assets/img/nmap-header.png
