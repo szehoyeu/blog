@@ -1,13 +1,11 @@
 ---
 layout: post
 title:  "THM: Passive Reconnaissance"
-date:   2024-02-13 14:00:00 +0000
+date:   2024-02-13 18:00:00 +0000
 categories: Red
 image: /blog/assets/img/pass-reconnaissance-hdr.png
 ---
 Ref: 
-- [DisroWatch](https://distrowatch.com/dwres.php?resource=major "Link")
-
 - [THM Passive Reconnaissance:](https://tryhackme.com/room/passiverecon?path=undefined)
 
 ---

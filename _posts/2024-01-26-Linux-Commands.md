@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "TryHackMe Linux Commands"
+title:  "THM: Linux Commands"
 date:   2024-01-26 18:27:42 +0000
 categories: Linux
 image: /blog/assets/img/linux.png

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "TryHackMe-Nmamp Advanced Port Scans 03"
+title:  "THM: Nmamp Advanced Port Scans 03"
 date:   2024-02-07 14:00:00 +0000
 categories: Nmap
 image: /blog/assets/img/nmap-header.png
